@@ -440,9 +440,11 @@ function App() {
           </div>
           <div>
             <button onClick={() => translate()}>Translate</button>
-            <div id="google_translate_element"></div>
-          </div>
+           
+          </div><br/>
+          <button id="google_translate_element"></button>
         </section>
+        
       </div>
 
     </div>
