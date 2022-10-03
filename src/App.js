@@ -23,7 +23,7 @@ function App() {
   const [to, setTo] = useState('es');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  
+
 
   // checkbox condition
   const handleOnChange = () => {
@@ -404,11 +404,11 @@ function App() {
               : null}{" "}
             {gender === "male" ? "He" : "She"}{" "}
             {isChecked ? `meet you for ${meeting}` : null}
-           
+
           </div>
 
           <div className='start' >
-          &nbsp; &nbsp; From ({from}) :
+            &nbsp; &nbsp; From ({from}) : &nbsp;
             <select onChange={(e) => setFrom(e.target.value)}>
               {options.map((e) => (
                 <option key={e.code} value={e.code}>
@@ -417,16 +417,16 @@ function App() {
               ))}
             </select>
             <div>
-            <div className="resultBox">
-            <textarea cols="53" rows="8" onInput={(e) => setInput(e.target.value)}></textarea>
+              <div className="resultBox">
+                <textarea cols="53" rows="8" onInput={(e) => setInput(e.target.value)}></textarea>
+              </div>
+
             </div>
-            
-          </div>
           </div>
 
-         
+
           <div className='start'>
-           &nbsp;&nbsp; To ({to}) :
+            &nbsp;&nbsp; To ({to}) : &nbsp;
             <select onChange={(e) => setTo(e.target.value)}>
               {options.map((e) => (
                 <option key={e.code} value={e.code}>
@@ -440,11 +440,11 @@ function App() {
           </div>
           <div>
             <button onClick={() => translate()}>Translate</button>
-           
-          </div><br/>
+
+          </div><br />
           <button id="google_translate_element"></button>
         </section>
-        
+
       </div>
 
     </div>
