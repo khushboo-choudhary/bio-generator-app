@@ -1,5 +1,6 @@
 import './App.css';
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
   const [name, setName] = useState("Bravo");
@@ -16,6 +17,13 @@ function App() {
   const [isCheckedOccuption, setIsCheckedoccuption] = useState(true);
   const [isCheckedReligion, setIsCheckedReligion] = useState(true);
   const [isCheckedSchool, setIsCheckedSchool] = useState(true);
+  // translation state variable
+  const [options, setOptions] = useState([]);
+  const [from, setFrom] = useState('auto');
+  const [to, setTo] = useState('es');
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+  
 
   // checkbox condition
   const handleOnChange = () => {
@@ -30,11 +38,11 @@ function App() {
   const handleOnChangeOccuption = () => {
     setIsCheckedoccuption(!isCheckedOccuption);
   };
- 
+
   const handleOnChangeReligion = () => {
     setIsCheckedReligion(!isCheckedReligion);
   };
- 
+
   // input value change
   const handleInputName = (e) => {
     setName(e.target.value);
@@ -67,50 +75,50 @@ function App() {
   const handleMeeting = (e) => {
     setMeeting(e.target.value);
   };
-  
+
   const generateRandomPicture = () => {
-    let pictureArray = ["https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&w=1000&q=80","https://avatars.githubusercontent.com/u/1071625?v=4","https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg","https://xsgames.co/randomusers/assets/avatars/male/74.jpg","https://blog.texasbar.com/files/2013/01/AmandaHouston_smaller1.jpg","https://jv.ag/assets/images/bio-photo.jpg","https://minimaltoolkit.com/images/randomdata/male/79.jpg","https://xsgames.co/randomusers/assets/avatars/male/77.jpg","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQchKh0RM_hXmLJMZaQu8pU3_Ru6AqL8c3SlvrZsabfH2jydtI2coeV9r-lCFpwN6GDHRk&usqp=CAU","https://images.unsplash.com/photo-1609132718484-cc90df3417f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmFrZSUyMHdvbWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80"]
+    let pictureArray = ["https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&w=1000&q=80", "https://avatars.githubusercontent.com/u/1071625?v=4", "https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg", "https://xsgames.co/randomusers/assets/avatars/male/74.jpg", "https://blog.texasbar.com/files/2013/01/AmandaHouston_smaller1.jpg", "https://jv.ag/assets/images/bio-photo.jpg", "https://minimaltoolkit.com/images/randomdata/male/79.jpg", "https://xsgames.co/randomusers/assets/avatars/male/77.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQchKh0RM_hXmLJMZaQu8pU3_Ru6AqL8c3SlvrZsabfH2jydtI2coeV9r-lCFpwN6GDHRk&usqp=CAU", "https://images.unsplash.com/photo-1609132718484-cc90df3417f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmFrZSUyMHdvbWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80"]
     setImage(pictureArray[Math.floor(Math.random() * 10)]);
   }
-  
+
   const generateRandomName = () => {
     let stack = [];
-    let genderStack=[];
-    let nameArray = [{name :"Jacob", gender:"male"}, {name:"Oliver",gender:"male"}, {name:"Jack", gender:"neutral"}, {name:"Thomas", gender: "male"},{name:"Eric", gender:"male"},{name:"Oscar",gender:"neutral"},{name:"Mandy Walters", gender:"female"},{name:"Sunita Bora", gender:"female"},{name:"Zoya Behl",gender:"female"},{name:"Ishani Matthai",gender:"neutral"},{name:"Janya Dalal",gender:"neutral"},{name:"Kanti Chowdhury",gender:"female"},{name:"Anaya Oak",gender:"female"},{name:"Sushila Dutta",gender:"female"},{name:"Rashmi Sharma",gender:"neutral"}];
+    let genderStack = [];
+    let nameArray = [{ name: "Jacob", gender: "male" }, { name: "Oliver", gender: "male" }, { name: "Jack", gender: "neutral" }, { name: "Thomas", gender: "male" }, { name: "Eric", gender: "male" }, { name: "Oscar", gender: "neutral" }, { name: "Mandy Walters", gender: "female" }, { name: "Sunita Bora", gender: "female" }, { name: "Zoya Behl", gender: "female" }, { name: "Ishani Matthai", gender: "neutral" }, { name: "Janya Dalal", gender: "neutral" }, { name: "Kanti Chowdhury", gender: "female" }, { name: "Anaya Oak", gender: "female" }, { name: "Sushila Dutta", gender: "female" }, { name: "Rashmi Sharma", gender: "neutral" }];
     // eslint-disable-next-line array-callback-return
-    nameArray.map((e)=>{
-       stack.push(e.name)
-       genderStack.push(e.gender);
+    nameArray.map((e) => {
+      stack.push(e.name)
+      genderStack.push(e.gender);
     })
     setName(stack[Math.floor(Math.random() * nameArray.length)]);
     setGender(genderStack[Math.floor(Math.random() * nameArray.length)])
   };
 
   const generateRandomLocation = () => {
-    let locationArray = ["Haryana", "Mumbai", "Pune", "Dehli","Nagpur","Dubai","Rajasthan","Bangaluru","Mangalore","Chennai","Coimbatore","Faridabad","Visakhapatnam","Patna","Ghaziabad"];
+    let locationArray = ["Haryana", "Mumbai", "Pune", "Dehli", "Nagpur", "Dubai", "Rajasthan", "Bangaluru", "Mangalore", "Chennai", "Coimbatore", "Faridabad", "Visakhapatnam", "Patna", "Ghaziabad"];
     setLocation(locationArray[Math.floor(Math.random() * locationArray.length)]);
-    
+
   };
-  
+
   const generateRandomSchool = () => {
-    let schoolArray = ["the University of Utah", "Utah State", "Edgewood High", "Timber Creek Institute","Westview School","Tranquillity Middle School","Sandalwood College","Angelwood University","Riverbank University","Meadows School for Boys"];
+    let schoolArray = ["the University of Utah", "Utah State", "Edgewood High", "Timber Creek Institute", "Westview School", "Tranquillity Middle School", "Sandalwood College", "Angelwood University", "Riverbank University", "Meadows School for Boys"];
     setSchool(schoolArray[Math.floor(Math.random() * schoolArray.length)]);
   };
 
   const generateRandomMajor = () => {
-    let majorArray = ["Wildlife Conservation", "Information Systems", "Exercise Science", "Entrepreneurship","Dietetics","in the nursing program","History","Anthropology","Computer Science","Animation at BYU with hopes to become an animator at Pixar","Animation","Cybersecurity","Ancient Near-Eastern Studies","Psychology","Elementary Education"];
+    let majorArray = ["Wildlife Conservation", "Information Systems", "Exercise Science", "Entrepreneurship", "Dietetics", "in the nursing program", "History", "Anthropology", "Computer Science", "Animation at BYU with hopes to become an animator at Pixar", "Animation", "Cybersecurity", "Ancient Near-Eastern Studies", "Psychology", "Elementary Education"];
     setMajor(majorArray[Math.floor(Math.random() * majorArray.length)]);
   };
 
   const generateRandomOccupation = () => {
-    let OccuptionArray = ["journalist for a local newspaper", "manager at a local restaurant", "supervisor at Lowe's", "lab assistant","electrician","pastor for a local non-denominational Christian church","musician","regional manager of a paper company","database administrator","janitor at a local high school"];
+    let OccuptionArray = ["journalist for a local newspaper", "manager at a local restaurant", "supervisor at Lowe's", "lab assistant", "electrician", "pastor for a local non-denominational Christian church", "musician", "regional manager of a paper company", "database administrator", "janitor at a local high school"];
     setOccupation(OccuptionArray[Math.floor(Math.random() * OccuptionArray.length)]);
-    
+
   };
   const generateRandomReligion = () => {
-    let religionArray = ["without any religion in the home. For most of [PossessivePronoun] life, [SubjectPronoun] has never had any interest in spiritual things", "in an atheist family, but due to some personal experiences, feels as if there might be some type of Divine Being", "in a Christian home with little activity within his religion", "Christian, but lost [PossessivePronoun] faith in God as a teenager","Catholic","without much religious experience, but has made a lot of friends who are members of the Church while attending school","in a family that always encouraged a belief in God, but never attended one church consistently","Lutheran, and has a strong belief in Christ and the Bible","without religion in the home, but has always been curious about God","Buddhist, and considers [ObjectPronoun]self very spiritual"];
+    let religionArray = ["without any religion in the home. For most of [PossessivePronoun] life, [SubjectPronoun] has never had any interest in spiritual things", "in an atheist family, but due to some personal experiences, feels as if there might be some type of Divine Being", "in a Christian home with little activity within his religion", "Christian, but lost [PossessivePronoun] faith in God as a teenager", "Catholic", "without much religious experience, but has made a lot of friends who are members of the Church while attending school", "in a family that always encouraged a belief in God, but never attended one church consistently", "Lutheran, and has a strong belief in Christ and the Bible", "without religion in the home, but has always been curious about God", "Buddhist, and considers [ObjectPronoun]self very spiritual"];
     setReligion(religionArray[Math.floor(Math.random() * religionArray.length)]);
-  
+
   };
 
   const photoUpload = (e) => {
@@ -126,7 +134,7 @@ function App() {
     reader.readAsDataURL(file);
   };
 
-  // translation
+  // Google translation
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
       {
@@ -146,6 +154,37 @@ function App() {
     window.googleTranslateElementInit = googleTranslateElementInit;
   }, []);
 
+  // custom transltion using libretranslate.com
+  const translate = () => {
+
+    // curl -X POST "https://libretranslate.de/translate" -H  "accept: application/json" -H  "Content-Type: application/x-www-form-urlencoded" -d "q=hello&source=en&target=es&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+    const params = new URLSearchParams();
+    params.append('q', input);
+    params.append('source', from);
+    params.append('target', to);
+    params.append('format', 'text');
+    params.append('api_key', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
+
+    axios.post('https://libretranslate.de/translate', params, {
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }).then(res => {
+      setOutput(res.data.translatedText)
+    })
+  };
+
+  useEffect(() => {
+    axios
+      .get('https://libretranslate.com/languages', {
+        headers: { accept: 'application/json' },
+      })
+      .then((res) => {
+        setOptions(res.data);
+      });
+  }, []);
   return (
     <div className="App">
       {/* NavBar */}
@@ -154,7 +193,7 @@ function App() {
       </nav>
       {/* Main Body */}
       <div className='main'>
-      
+
         <section className='optionBox'>
           <h2 id='color'>Options</h2>
           <div id='color'>
@@ -181,7 +220,7 @@ function App() {
             <select
               value={gender}
               onChange={handleGender}
-            
+
             >
               <option value="male" onChange={handleGender}>Male</option>
               <option value="female" onChange={handleGender}>Female</option>
@@ -260,14 +299,14 @@ function App() {
               checked={isCheckedReligion}
               onChange={handleOnChangeReligion}
             ></input>&nbsp;&nbsp;
-            <label>Religious background</label><br/>
+            <label>Religious background</label><br />
             <textarea
               id='white'
               rows="5"
               cols="70"
               value={religion}
               onChange={handleReligion}
-            ></textarea><br/>
+            ></textarea><br />
             <button id='white' className="btn" onClick={generateRandomReligion}>Random religion</button>
           </div>
           <div id='color'>
@@ -287,7 +326,7 @@ function App() {
               }}
             >
               Reason for meeting with missionaries
-            </label><br/>
+            </label><br />
             <textarea
               className="textarea"
               id='white'
@@ -295,7 +334,7 @@ function App() {
               cols="70"
               value={meeting}
               onChange={handleMeeting}
-            ></textarea><br/>
+            ></textarea><br />
             <button
               className="selectbutton btn"
               id='sandal'
@@ -304,14 +343,14 @@ function App() {
               Restoration
             </button>
             <button
-          
+
               className="selectbutton btn"
               id='green'
               onClick={() => setMeeting("is looking to develop a more personal relationship with God")}
             >
               Plan of Salvation
             </button>
-             <button
+            <button
               className="selectbutton btn"
               id='blue'
               onClick={() => setMeeting("has hit a bit of a rough patch in life right now with all the crazy things happening in the world and is looking for some of that happiness. [SubjectPronoun] talked to [PossessivePronoun] friend about it and the friend suggested [Name] meet with the missionaries. [SubjectPronoun] is hoping to learn how to be a better Christian so that [SubjectPronoun] can get through hard times")}
@@ -365,11 +404,49 @@ function App() {
               : null}{" "}
             {gender === "male" ? "He" : "She"}{" "}
             {isChecked ? `meet you for ${meeting}` : null}
+           
           </div>
-          <div id="google_translate_element"></div>
+
+          <div className='start' >
+          &nbsp; &nbsp; From ({from}) :
+            <select onChange={(e) => setFrom(e.target.value)}>
+              {options.map((e) => (
+                <option key={e.code} value={e.code}>
+                  {e.name}
+                </option>
+              ))}
+            </select>
+            <div>
+            <div className="resultBox">
+            <textarea cols="53" rows="8" onInput={(e) => setInput(e.target.value)}></textarea>
+            </div>
+            
+          </div>
+          </div>
+
+         
+          <div className='start'>
+           &nbsp;&nbsp; To ({to}) :
+            <select onChange={(e) => setTo(e.target.value)}>
+              {options.map((e) => (
+                <option key={e.code} value={e.code}>
+                  {e.name}
+                </option>
+              ))}
+            </select>
+            <div className="resultBox">
+              <textarea cols="53" rows="8" value={output}></textarea>
+            </div>
+          </div>
+          <div>
+            <button onClick={() => translate()}>Translate</button>
+            <div id="google_translate_element"></div>
+          </div>
         </section>
       </div>
+
     </div>
+
   );
 }
 
