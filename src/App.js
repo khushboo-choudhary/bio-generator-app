@@ -12,7 +12,7 @@ function App() {
   const [religion, setReligion] = useState("Hindu");
   const [meeting, setMeeting] = useState("just conversation with members");
   const [image, setImage] = useState("https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png");
-  const [videoSrc, setVideoSrc] = useState("video");
+  const [videoSrc, setVideoSrc] = useState("");
   const [gender, setGender] = useState("male");
   const [isChecked, setIsChecked] = useState(true);
   const [isCheckedLocation, setIsCheckedLocation] = useState(true);
@@ -25,7 +25,6 @@ function App() {
   const [to, setTo] = useState('es');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-
 
   // checkbox condition
   const handleOnChange = () => {
@@ -123,17 +122,25 @@ function App() {
 
   };
 
+  // const photoUpload = (e) => {
+  //   const reader = new FileReader();
+  //   const file = e.target.files[0];
+  //   reader.onloadend = () => {
+  //     setImage(reader.result);
+  //     this.setState({
+  //       file: file,
+  //       imagePreviewUrl: reader.result,
+  //     });
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
+
+  // photo upload another method
   const photoUpload = (e) => {
-    const reader = new FileReader();
+    // console.log(e.target.files[0]);
     const file = e.target.files[0];
-    reader.onloadend = () => {
-      setImage(reader.result);
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result,
-      });
-    };
-    reader.readAsDataURL(file);
+    const url = URL.createObjectURL(file);
+    setImage(url);
   };
 
   // video uploaded
