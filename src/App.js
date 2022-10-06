@@ -1,8 +1,9 @@
 import './App.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 function App() {
+  const inputRef = useRef();
   const [name, setName] = useState("Bravo");
   const [location, setLocation] = useState("Mylapur");
   const [school, setSchool] = useState("Meenakshi Medical college");
@@ -11,6 +12,7 @@ function App() {
   const [religion, setReligion] = useState("Hindu");
   const [meeting, setMeeting] = useState("just conversation with members");
   const [image, setImage] = useState("https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png");
+  const [videoSrc, setVideoSrc] = useState("video");
   const [gender, setGender] = useState("male");
   const [isChecked, setIsChecked] = useState(true);
   const [isCheckedLocation, setIsCheckedLocation] = useState(true);
@@ -134,6 +136,15 @@ function App() {
     reader.readAsDataURL(file);
   };
 
+  // video uploaded
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    setVideoSrc(url);
+  };
+
+
   // Google translation
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
@@ -199,13 +210,23 @@ function App() {
           <div id='color'>
 
             <label>Profile photo</label>&nbsp;&nbsp;
-            <input type="file"
+            <input type="file" id="input" accept='.jpg, .png, .jpeg'
               onChange={photoUpload}
-            >
-            </input>
+            />
+
             <button id='white' className="btn"
               onClick={generateRandomPicture}
             >Random Picture</button>
+          </div>
+          <div className="VideoInput" id='color'>
+            <label>Video File</label>&nbsp;&nbsp;
+            <input
+              ref={inputRef}
+              id="input"
+              type="file"
+              onChange={handleFileChange}
+              accept=".mov,.mp4"
+            />
           </div>
           <div id='color'>
             <label>Name</label>&nbsp;&nbsp;
@@ -407,6 +428,20 @@ function App() {
 
           </div>
 
+          {/* video uploaded */}
+          {videoSrc && (
+            <video
+              className="VideoInput_video"
+              width="80%"
+              height="13%"
+              controls
+              src={videoSrc}
+            />
+          )}
+
+          {/* translator */}
+
+          <h1 id='color'>Translator</h1>
           <div className='start' >
             &nbsp; &nbsp; From ({from}) : &nbsp;
             <select onChange={(e) => setFrom(e.target.value)}>
@@ -418,7 +453,7 @@ function App() {
             </select>
             <div>
               <div className="resultBox">
-                <textarea cols="53" rows="8" onInput={(e) => setInput(e.target.value)}></textarea>
+                <textarea cols="55" rows="6" onInput={(e) => setInput(e.target.value)}></textarea>
               </div>
 
             </div>
@@ -435,7 +470,7 @@ function App() {
               ))}
             </select>
             <div className="resultBox">
-              <textarea cols="53" rows="8" value={output}></textarea>
+              <textarea cols="55" rows="6" value={output}></textarea>
             </div>
           </div>
           <div>

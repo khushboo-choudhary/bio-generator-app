@@ -120,8 +120,12 @@ button {
 }
 
 .start{
-  /* border:1px solid red; */
+  
   background-color: #b9c1bd;
   padding: 1rem;
   margin: 1rem;
+}
+#input{
+  /* border: 1px solid red; */
+  width: 210px;
 }
