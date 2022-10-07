@@ -1,16 +1,13 @@
 .App {
   text-align: center;
-  
+
 }
 
-* {
-  margin: 0%;
-}
 
 .nav {
   background-color: #bdc6c1;
   height: 70px;
-  margin: 0%;
+  margin: -0.8%;
   font-size: 32px;
   font-weight: 500;
 
@@ -26,18 +23,19 @@
 
 .optionBox {
 
-  max-width: 600px;
+  width: 45%;
   margin: 1rem;
 
 }
 
-.optionBox>div,.start{
+.optionBox>div,
+.start {
   text-align: start;
 }
 
 .resultBox {
 
-  max-width: 500px;
+  width: 40%;
   margin: 1rem;
 }
 
@@ -119,13 +117,117 @@ button {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
-.start{
-  
+.start {
+
   background-color: #b9c1bd;
   padding: 1rem;
   margin: 1rem;
 }
-#input{
-  /* border: 1px solid red; */
+
+#input {
   width: 210px;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+@media only screen and (max-device-width: 480px) {
+  * {
+    margin-top: -1.3%;
+
+  }
+
+  .main {
+    width: 100%;
+    display: block;
+    border: 2px solid navy;
+    padding-bottom: 200px;
+
+  }
+
+  .optionBox,
+  .resultBox {
+    width: 100%;
+    margin: auto;
+
+  }
+
+  textarea {
+    width: 100%;
+    margin-top: 1%;
+
+  }
+
+
+}
+
+@media only screen and (max-device-width:800px) {
+  * {
+    margin-top: -0.4%;
+
+  }
+
+  .App {
+    /* width: 97%; */
+    width: auto;
+
+  }
+
+  .main {
+    width: 100%;
+    display: block;
+    border: 2px solid navy;
+    padding-bottom: 500px;
+
+  }
+
+  .optionBox,
+  .resultBox {
+    margin: auto;
+    width: 100%;
+  
+  }
+
+  textarea {
+    width: 100%;
+    margin-top: 1%;
+
+  }
+
+}
+
+@media only screen and (min-device-width:800px) and (max-device-width:1100px){
+  * {
+    margin-top: -0.3%;
+
+  }
+
+  .App {
+    width: auto;
+    
+  }
+
+  .main {
+    width: 100%;
+    display: block;
+    border: 2px solid navy;
+    padding-bottom: 700px;
+
+  }
+
+  .optionBox,
+  .resultBox {
+    margin: auto;
+    width: 100%;
+  
+  }
+
+  textarea {
+    width: 100%;
+    margin-top: 1%;
+
+  }
+
 }
