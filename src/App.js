@@ -79,7 +79,7 @@ function App() {
 
   const generateRandomPicture = () => {
     let pictureArray = ["https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&w=1000&q=80", "https://avatars.githubusercontent.com/u/1071625?v=4", "https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg", "https://xsgames.co/randomusers/assets/avatars/male/74.jpg", "https://blog.texasbar.com/files/2013/01/AmandaHouston_smaller1.jpg", "https://jv.ag/assets/images/bio-photo.jpg", "https://minimaltoolkit.com/images/randomdata/male/79.jpg", "https://xsgames.co/randomusers/assets/avatars/male/77.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQchKh0RM_hXmLJMZaQu8pU3_Ru6AqL8c3SlvrZsabfH2jydtI2coeV9r-lCFpwN6GDHRk&usqp=CAU", "https://images.unsplash.com/photo-1609132718484-cc90df3417f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmFrZSUyMHdvbWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80"]
-    setImage(pictureArray[Math.floor(Math.random() * 10)]);
+    setImage(pictureArray[Math.floor(Math.random() * pictureArray.length)]);
   }
 
   const generateRandomName = () => {
