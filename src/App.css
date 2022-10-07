@@ -3,7 +3,6 @@
 
 }
 
-
 .nav {
   background-color: #bdc6c1;
   height: 70px;
@@ -18,7 +17,7 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  /* gap: 50px; */
+ 
 }
 
 .optionBox {
@@ -170,7 +169,6 @@ button {
   }
 
   .App {
-    /* width: 97%; */
     width: auto;
 
   }
