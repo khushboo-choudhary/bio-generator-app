@@ -181,7 +181,6 @@ function App() {
     params.append('q', input);
     params.append('source', from);
     params.append('target', to);
-    params.append('format', 'text');
     params.append('api_key', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 
     axios.post('https://libretranslate.de/translate', params, {
@@ -356,7 +355,7 @@ function App() {
               Reason for meeting with missionaries
             </label><br />
             <textarea
-              className="textarea"
+              // className="textarea"
               id='white'
               rows="6"
               cols="70"
@@ -460,7 +459,7 @@ function App() {
             </select>
             <div>
               <div className="resultBox">
-                <textarea cols="55" rows="6" onInput={(e) => setInput(e.target.value)}></textarea>
+                <textarea className="textarea" cols="55" rows="6" onInput={(e) => setInput(e.target.value)}></textarea>
               </div>
 
             </div>
@@ -477,7 +476,7 @@ function App() {
               ))}
             </select>
             <div className="resultBox">
-              <textarea cols="55" rows="6" value={output}></textarea>
+              <textarea className="textarea" cols="55" rows="6" value={output}></textarea>
             </div>
           </div>
           <div>
