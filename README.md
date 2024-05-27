@@ -1,3 +1,36 @@
+# Bio Generator App
+I have created the Bio Generator App webpage with translator features implemented using React and deployed it on Vercel.
+
+# Run in local and Installation
+
+    1. Clone the repo
+
+>        ### git clone https://github.com/khushboo-choudhary/bio-generator-app.git
+
+>        ### cd bio-generator-app
+
+    2. Install NPM Packages
+        
+>        ### npm install
+
+    3. Build and Start the Server
+            
+>        ### npm start
+
+    4. Vercel Link 
+
+>        ### `https://bio-generator-app-kappa.vercel.app/`    
+
+
+## How website look like
+
+**You can go through the whole website deployed link is —**
+[https://bio-generator-app-kappa.vercel.app/](https://bio-generator-app-kappa.vercel.app/)
+
+### ScreenShots
+
+![biogeneratorapp](https://github.com/khushboo-choudhary/ThePortfolyo/assets/30701525/64c0e812-06f5-4b70-9fa9-cdee02e889c2)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
